@@ -1,0 +1,7 @@
+**/node_modules
+**/*.jsx
+**/*.sass
+**/*.code-workspace
+**/*.md
+**/*.gitignore
+**/*.yml

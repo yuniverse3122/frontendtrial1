@@ -1,0 +1,424 @@
+@charset "utf-8"
+
+$dark: #363636
+$info: aquamarine
+
+@import '~bulma/sass/utilities/_all'
+@import '~bulma/sass/base/_all'
+@import '~bulma/sass/components/navbar'
+@import '~bulma/sass/components/dropdown'
+@import '~bulma/sass/layout/hero'
+@import '~bulma/sass/elements/title'
+@import '~bulma/sass/elements/icon'
+@import '~bulma/sass/elements/button'
+@import '~bulma/sass/elements/container'
+@import '~bulma/sass/elements/table'
+@import '~bulma/sass/grid/columns'
+@import '~bulma/sass/form/shared'
+@import '~bulma/sass/form/tools'
+@import '~bulma/sass/form/input-textarea'
+@import '~bulma/sass/form/file'
+
+@import '~bulma-extensions/bulma-switch/src/sass/index'
+
+%shared-panel
+  padding: 10px
+  border-radius: 5px
+  box-shadow: -3px -3px 4px 0px inset black, 3px 3px 4px 0px inset grey !important
+
+%shared-panel-inverted
+  padding: 10px
+  border-radius: 5px
+  background-color: darken($dark, 2.5%)
+  box-shadow: 4px 4px 4px 0px inset black, -3px -3px 4px 0px inset darken(grey, 20%) !important
+
+%shared-popout-dropdown
+  border-style: none
+  width: 100%
+  text-overflow: ellipsis
+  word-wrap: break-word
+
+
+%shared-popout-button
+  @extend %shared-popout-dropdown
+  &:hover
+    filter: brightness(110%)
+  &:active
+    filter: brightness(90%)
+
+%shared-metal
+  color: black
+  background-image: -webkit-repeating-linear-gradient(top, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0)   6%, hsla(0,0%,100%, .1) 7.5%),
+  -webkit-repeating-linear-gradient(top, hsla(0,0%,  0%,0) 0%, hsla(0,0%,  0%,0)   4%, hsla(0,0%,  0%,.03) 4.5%),
+  -webkit-repeating-linear-gradient(top, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0) 1.2%, hsla(0,0%,100%,.15) 2.2%),
+  
+  -webkit-radial-gradient( 50% 50%, 50% 100%, hsla(0,0%,60%,1) 15%, hsla(0,0%,70%,1) 50%, hsla(0,0%,90%,1) 100%)
+
+%shared-pointer
+  cursor: pointer
+  -webkit-touch-callout: none
+  -webkit-user-select: none
+  -khtml-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+
+@keyframes fadeOut 
+  20% 
+    opacity: 1
+  80%
+    opacity: 1
+  100% 
+    opacity: 0
+
+::-webkit-scrollbar
+  width: 5px
+  height: 5px
+  background-color: black
+
+::-webkit-scrollbar-track
+  border-radius: 5px
+  background-color: black
+
+::-webkit-scrollbar-thumb
+  border-radius: 5px
+  border-width: 10px
+  background-color: $light
+
+::-webkit-scrollbar-corner
+  background-color: black
+
+@function colors-from-list($list)
+  @return nth($list, 1)
+
+#grid
+  pointer-events: none
+  position: absolute
+  top: 0
+  left: 0
+  z-index: 2
+  display: none
+  &.is-scripted
+    display: grid
+    grid-template-columns: repeat(var(--grid-columns), calc(var(--grid-size, 50px) * var(--pixel-scale-x, 1)))
+    grid-template-rows: repeat(var(--grid-rows), calc(var(--grid-size, 50px) * var(--pixel-scale-y, 1)))
+    width: 100%
+    height: 100%
+  &.is-visible
+    display: block
+    z-index: 3
+    width: 100%
+    height: 100%
+    background: repeating-linear-gradient(to bottom,transparent,transparent calc(calc(var(--grid-size, 50px) * var(--pixel-scale-y, 1)) - 1px),transparentize(aquamarine, 0.5) calc(calc(var(--grid-size, 50px) * var(--pixel-scale-y, 1)) - 1px),transparentize(aquamarine, 0.5) calc(var(--grid-size, 50px) * var(--pixel-scale-y, 1))),
+    repeating-linear-gradient(to right,transparent,transparent calc(calc(var(--grid-size, 50px) * var(--pixel-scale-x, 1)) - 1px),transparentize(aquamarine, 0.5) calc(calc(var(--grid-size, 50px) * var(--pixel-scale-x, 1)) - 1px),transparentize(aquamarine, 0.5) calc(var(--grid-size, 50px) * var(--pixel-scale-x, 1)))
+
+#mainImage
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+
+#zoomInOverlay
+  @extend %shared-pointer
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: 2
+  &.has-no-pointer
+    cursor: none
+
+#zoomInImage
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+
+.is-flex-valign
+  flex-direction: column
+
+.is-fullsize
+  position: relative
+  width: 100%
+  contain: strict
+  @media screen and (max-width: 800px)
+    height: 1024px
+  @media screen and (min-width: 800px)
+    height: 100%
+
+.table
+  border-radius: 10px
+  table-layout: fixed
+  width: 100%
+  background-color: $dark
+  @extend %shared-pointer
+  & thead
+    & td, & th
+      background-color: black
+      color: $light
+      border-color: lighten($dark, 20%)
+  & tbody
+    & td
+      background-color: black
+    & td, & th
+      color: $light
+      border-color: lighten($dark, 20%)
+
+.is-result-panel
+  padding: 5px
+
+.is-secondary
+  background-color: $grey-lighter
+
+.tooltip 
+  position: absolute
+  display: inline-block
+  opacity: 0.9
+  z-index: 3
+
+.tooltip .tooltiptext 
+  visibility: hidden
+  white-space: nowrap
+  background-color: darken($dark, 10%)
+  color: $light
+  text-align: center
+  padding: 10px
+  border-radius: 6px
+  position: absolute
+  box-shadow: 1px 1px 4px 0px inset grey !important
+  z-index: 3
+  opacity: 1
+
+.tooltip.hover .tooltiptext 
+  visibility: visible
+  animation: fadeOut ease 3s
+  opacity: 0
+
+.has-panels
+  min-height: 100vh
+
+.has-subpanels
+  height: 100%
+
+.columns
+  height: 100%
+  &.is-marginless
+
+.column
+  &.is-child
+    &.has-no-padding
+      padding: 0
+    &.has-padding
+      padding: 20px 20px 0px 20px
+  &.is-root
+    padding: 2.5px
+    padding-top: 20px
+    @media screen and (min-width: 800px)
+      height: 100vh
+    &:first-child
+      @media screen and (min-width: 800px)
+        padding-left: 30px
+    &:last-child
+      @media screen and (min-width: 800px)
+        padding-right: 15px
+
+.is-scrollable
+  display: block
+  height: 100%
+  width: 100%
+  overflow: scroll
+
+.is-fixed-flex-height
+  height: 0
+
+.is-image-panel
+  border-style: solid
+  border-width: 5px
+  border-color: lightblue
+  height: 70%
+  
+.is-navigation-panel
+  border-style: solid
+  border-width: 5px
+  border-color: $light
+  height: 30%
+
+.is-panel
+  border-style: solid
+  border-width: 5px
+  border-color: $light
+  padding: 10px
+  height: 100%
+  &.is-double-padded 
+    padding: 20px
+
+.file-cta
+  color: $dark
+  padding: 0
+  @extend %shared-popout-button
+
+.file-label
+  width: 100%
+
+.is-dotted
+  color: $dark
+  padding: 10px
+  display: block
+  @extend %shared-popout-button
+  
+svg
+  align-content: baseline
+
+.button-text
+  pointer-events: none
+  margin-left: 10px
+  overflow: hidden
+  text-overflow: ellipsis
+  word-wrap: nowrap
+  &.half-margin
+    margin-left: 5px
+
+.box
+  &.has-margin
+    margin: 2.5px
+  &.is-offset
+    position: relative
+    top: 10px
+    left: 10px
+
+.button
+  padding: 10px 0 10px 0
+  display: block
+  @extend %shared-popout-button
+  &.is-active 
+    background: -webkit-linear-gradient($light, $info)
+
+.dropdown
+  display: block
+  z-index: 2
+  position: relative
+  opacity: 0.95
+
+.dropdown-content
+  background-color: darken($dark, 10%)
+  @extend %shared-panel
+
+.dropdown-item
+  color: darkturquoise
+  filter: drop-shadow(0 0 2.5px lighten($info, 5%))
+  border-style: outset
+  border-width: 1px
+  @extend %shared-popout-button
+  &:hover
+    background-color: darken($dark, 10%) !important
+    color: $grey-lighter !important
+    filter: drop-shadow(0 0 2.5px lighten($grey-lighter, 5%)) brightness(130%)
+  &:active
+    color: cyan !important
+    filter: drop-shadow(0 0 2.5px lighten($info, 5%)) brightness(110%) !important
+  &.is-active
+    background-color: darken(darkturquoise, 20%) !important
+
+.is-stacked
+  flex-direction: column
+
+.is-flex-compact
+  flex: 0
+
+.is-flex-fill
+  flex: 1 0 auto
+  &.is-small
+    flex: 0.4 0 auto
+
+.is-subpanel-compact
+  flex: 0
+  @extend %shared-panel
+
+.is-subpanel-flex
+  flex: 1 0 auto
+  @extend %shared-panel
+
+.is-subpanel
+  height: 100%
+  @extend %shared-panel
+
+.is-subpanel-inverted
+  height: 100%
+  @extend %shared-panel-inverted
+
+.is-title-panel
+  background: -webkit-linear-gradient($light, $grey)
+  -webkit-background-clip: text
+  -webkit-text-fill-color: transparent
+  font-weight: bold
+  white-space: nowrap
+  @extend %shared-panel
+
+.is-input-panel
+  margin: 5px 0 5px 0
+  @extend %shared-panel-inverted
+
+.is-button-panel
+  padding: 10px
+  height: 100%
+  @extend %shared-panel
+
+.input
+  border: none
+  color: $light
+  background-color: darken($dark, 15%)
+  box-shadow: 4px 4px 4px 0px inset black, -3px -3px 4px 0px inset darken(grey, 20%) !important
+  padding-right: 0 !important
+  &::placeholder
+    color: $grey
+
+.field, .control
+  margin: 5px
+
+.has-overflow-hidden
+  overflow: hidden
+
+.is-project-info-title
+  text-align: center
+  border-radius: 2.5px
+  white-space: nowrap
+  @extend %shared-metal
+  @extend %shared-panel
+
+.is-section-eval-info
+  border-style: outset
+  border-width: 2.5px
+  border-color: $grey-dark
+  border-radius: 5px
+  background: -webkit-linear-gradient($light, $grey)
+  -webkit-background-clip: text
+  -webkit-text-fill-color: transparent
+  padding: 5px 5px 0.4em 5px
+  line-height: 1em
+  font-weight: bold
+  white-space: nowrap
+  &.is-main
+    font-size: 1.5em
+
+.has-background-transparent
+  background-color: transparent
+
+.is-electric
+  padding: 0
+  width: 0
+  overflow: hidden
+  color: $info
+  filter: drop-shadow(0 0 2.5px lighten($info, 5%))
+  @extend %shared-pointer
+  &:hover
+    color: darken($info, 25%)
+    filter: drop-shadow(0 0 2.5px darken($info, 25%))
+  &:active
+    color: darken($info, 50%)
+    filter: drop-shadow(0 0 2.5px darken($info, 25%))
+
+.is-metal
+  @extend %shared-metal
